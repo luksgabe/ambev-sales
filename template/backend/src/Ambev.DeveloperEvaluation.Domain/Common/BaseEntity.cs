@@ -2,10 +2,19 @@
 
 namespace Ambev.DeveloperEvaluation.Domain.Common;
 
-public class BaseEntity : IComparable<BaseEntity>
+public abstract class BaseEntity : IComparable<BaseEntity>
 {
     public Guid Id { get; set; }
 
+    /// <summary>
+    /// Gets the date and time when the user was created.
+    /// </summary>
+    public abstract DateTime CreatedAt { get; set; }
+
+    /// <summary>
+    /// Gets the date and time of the last update to the user's information.
+    /// </summary>
+    public abstract DateTime? UpdatedAt { get; set; }
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()
     {
         return Validator.ValidateAsync(this);
