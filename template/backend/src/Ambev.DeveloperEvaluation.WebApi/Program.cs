@@ -3,16 +3,13 @@ using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
-using Ambev.DeveloperEvaluation.IoC;
-using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Configurations;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
 using Serilog;
-using System.Buffers;
-using System.Text.Json.Serialization;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
 
@@ -47,17 +44,7 @@ public class Program
             builder.AddBasicHealthChecks();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DefaultContext>(options =>
-                options.UseNpgsql(
-                    builder.Configuration.GetConnectionString("DefaultConnection")
-                )
-            );
-
-            builder.Services.AddDbContext<EventStoreSqlContext>(options =>
-                options.UseNpgsql(
-                    builder.Configuration.GetConnectionString("DefaultConnection")
-                )
-            );
+            builder.AddDatabaseConfiguration();
 
             builder.Services.AddJwtAuthentication(builder.Configuration);
 
@@ -75,6 +62,8 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
 
@@ -83,6 +72,9 @@ public class Program
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.CreateDatabaseIfNotExists();
+
             app.AddMessageBrokerConfig();
 
             app.UseHttpsRedirection();
