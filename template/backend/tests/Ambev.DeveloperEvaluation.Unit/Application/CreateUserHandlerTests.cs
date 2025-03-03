@@ -83,7 +83,7 @@ public class CreateUserHandlerTests
     public async Task Handle_InvalidRequest_ThrowsValidationException()
     {
         // Given
-        var command = new CreateUserCommand(string.Empty, string.Empty, string.Empty, string.Empty, DeveloperEvaluation.Domain.Enums.UserStatus.Active, DeveloperEvaluation.Domain.Enums.UserRole.None); // Empty command will fail validation
+        var command = new CreateUserCommand(); // Empty command will fail validation
 
         // When
         var act = () => _handler.Handle(command, CancellationToken.None);

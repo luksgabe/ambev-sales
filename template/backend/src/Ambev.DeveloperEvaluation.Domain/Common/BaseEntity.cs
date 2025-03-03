@@ -1,9 +1,12 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Validation;
+using Ambev.DeveloperEvaluation.Domain.SeedWork;
 
 namespace Ambev.DeveloperEvaluation.Domain.Common;
 
 public abstract class BaseEntity : IComparable<BaseEntity>
 {
+    private List<IEvent> _domainEvents;
+
     public Guid Id { get; set; }
 
     /// <summary>
@@ -19,6 +22,7 @@ public abstract class BaseEntity : IComparable<BaseEntity>
     {
         return Validator.ValidateAsync(this);
     }
+    public IReadOnlyCollection<IEvent> DomainEvents => _domainEvents?.AsReadOnly();
 
     public int CompareTo(BaseEntity? other)
     {
@@ -28,5 +32,21 @@ public abstract class BaseEntity : IComparable<BaseEntity>
         }
 
         return other!.Id.CompareTo(Id);
+    }
+
+    public void AddDomainEvent(IEvent domainEvent)
+    {
+        _domainEvents = _domainEvents ?? new List<IEvent>();
+        _domainEvents.Add(domainEvent);
+    }
+
+    public void RemoveDomainEvent(IEvent domainEvent)
+    {
+        _domainEvents?.Remove(domainEvent);
+    }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents?.Clear();
     }
 }
