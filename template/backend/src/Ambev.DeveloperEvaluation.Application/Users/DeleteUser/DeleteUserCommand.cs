@@ -7,10 +7,11 @@ namespace Ambev.DeveloperEvaluation.Application.Users.DeleteUser;
 /// </summary>
 public record DeleteUserCommand : IRequest<DeleteUserResponse>
 {
+
     /// <summary>
     /// The unique identifier of the user to delete
     /// </summary>
-    public Guid Id { get; }
+    public Guid Id { get; protected set; }
 
     /// <summary>
     /// Initializes a new instance of DeleteUserCommand

@@ -22,6 +22,18 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
 
             builder.Property(u => u.CreatedAt).IsRequired();
             builder.Property(u => u.UpdatedAt);
+
+            builder.HasOne(u => u.Customer)
+                .WithMany()
+                .HasForeignKey(u => u.CustomerId);
+
+            builder.HasOne(u => u.Branch)
+                .WithMany(b => b.Sales)
+                .HasForeignKey(u => u.BranchId);
+
+            builder.HasMany(u => u.SaleItens)
+                .WithOne(u => u.Sale)
+                .HasForeignKey(u => u.SaleId);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(u => u.UpdatedAt);
 
             builder.HasOne(builder => builder.Sale)
-                .WithMany(sale => sale.SaleItems)
+                .WithMany(sale => sale.SaleItens)
                 .HasForeignKey(saleItem => saleItem.SaleId);
 
             builder.HasOne(builder => builder.Product)
