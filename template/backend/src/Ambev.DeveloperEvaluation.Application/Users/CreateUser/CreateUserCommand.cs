@@ -18,17 +18,37 @@ namespace Ambev.DeveloperEvaluation.Application.Users.CreateUser;
 /// <see cref="AbstractValidator{T}"/> to ensure that the fields are correctly 
 /// populated and follow the required rules.
 /// </remarks>
-public record CreateUserCommand : UserCommand, IRequest<CreateUserResult>
+public record CreateUserCommand : IRequest<CreateUserResult>
 {
-    public CreateUserCommand(string username, string password, string phone, string email, UserStatus status, UserRole role)
-    {
-        Username = username;
-        Password = password;
-        Phone = phone;
-        Email = email;
-        Status = status;
-        Role = role;
-    }
+    /// <summary>
+    /// Gets or sets the username of the user to be created.
+    /// </summary>
+    public string Username { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the password for the user.
+    /// </summary>
+    public string Password { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the phone number for the user.
+    /// </summary>
+    public string Phone { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the email address for the user.
+    /// </summary>
+    public string Email { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the status of the user.
+    /// </summary>
+    public UserStatus Status { get; set; }
+
+    /// <summary>
+    /// Gets or sets the role of the user.
+    /// </summary>
+    public UserRole Role { get; set; }
 
     public ValidationResultDetail Validate()
     {

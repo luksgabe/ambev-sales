@@ -31,7 +31,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .WithMany(b => b.Sales)
                 .HasForeignKey(u => u.BranchId);
 
-            builder.HasMany(u => u.SaleItems)
+            builder.HasMany(u => u.SaleItens)
                 .WithOne(u => u.Sale)
                 .HasForeignKey(u => u.SaleId);
         }

@@ -7,6 +7,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
     public class Branch : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
         public override DateTime CreatedAt { get; set; }
         public override DateTime? UpdatedAt { get; set; }
         public ICollection<Sale> Sales { get; set; } = new List<Sale>();

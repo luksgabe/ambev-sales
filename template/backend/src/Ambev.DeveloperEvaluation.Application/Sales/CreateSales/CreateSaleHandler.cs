@@ -1,17 +1,55 @@
-﻿using MediatR;
+﻿using Ambev.DeveloperEvaluation.Application.Users.CreateUser;
+using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.Domain.SeedWork;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSales
 {
+    /// <summary>
+    /// Handler for processing CreateSaleHandler requests
+    /// </summary>
     public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, CreateSaleResult>
     {
-        public CreateSaleHandler()
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISaleRepository _saleRepository;
+        private readonly IMapper _mapper;
+
+        /// <summary>
+        /// Initializes a new instance of CreateSaleHandler
+        /// </summary>
+        /// <param name="unitOfWork">The unitofwork</param>
+        /// <param name="saleRepository">The sale repository</param>
+        /// <param name="mapper">The AutoMapper instance</param>
+        /// <param name="validator">The validator for CreateSaleCommand</param>
+        public CreateSaleHandler(IUnitOfWork unitOfWork, ISaleRepository saleRepository, IMapper mapper)
         {
-            
+            _unitOfWork = unitOfWork;
+            _saleRepository = saleRepository;
+            _mapper = mapper;
         }
 
-        public async Task<CreateSaleResult> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
+        public async Task<CreateSaleResult> Handle(CreateSaleCommand command, CancellationToken cancellationToken)
         {
-            return new CreateSaleResult();
+            var validator = new CreateSaleCommandValidator();
+            var validationResult = await validator.ValidateAsync(command, cancellationToken);
+
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult.Errors);
+
+            var sale = _mapper.Map<Sale>(command);
+
+            sale.Id = Guid.NewGuid();
+
+            sale.SetTotalSaleAmount();
+
+            var createSale = await _saleRepository.CreateAsync(sale, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            return  _mapper.Map<CreateSaleResult>(createSale);
         }
     }
 }

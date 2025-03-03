@@ -1,4 +1,4 @@
-﻿namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSales
+﻿namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSales
 {
     /// <summary>
     /// Represents the response returned after successfully creating a new sale.
@@ -7,7 +7,7 @@
     /// This response contains the unique identifier of the newly created sale,
     /// which can be used for subsequent operations or reference.
     /// </remarks>
-    public class CreateSaleResult
+    public class CreateSaleResponse
     {
         /// <summary>
         /// Gets or sets the unique identifier of the newly created sale.
