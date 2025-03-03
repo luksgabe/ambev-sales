@@ -19,6 +19,10 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.Property(u => u.Location)
+                .IsRequired()
+                .HasMaxLength(100);
+
             builder.Property(u => u.CreatedAt)
                 .IsRequired();
 

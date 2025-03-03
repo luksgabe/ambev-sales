@@ -9,7 +9,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public Guid CustomerId { get; set; }
         
         public bool IsCancelled { get; set; }
-        public ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
+        public ICollection<SaleItem> SaleItens { get; set; } = new List<SaleItem>();
         public decimal TotalSaleAmount { get; set; }
         public override DateTime CreatedAt { get; set; }
         public override DateTime? UpdatedAt { get; set; }
@@ -18,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public Branch Branch { get; set; }
         public void SetTotalSaleAmount()
         {
-            TotalSaleAmount = SaleItems.Sum(x => x.TotalItemAmount);
+            TotalSaleAmount = SaleItens.Sum(x => x.TotalItemAmount);
         }
     }
 }

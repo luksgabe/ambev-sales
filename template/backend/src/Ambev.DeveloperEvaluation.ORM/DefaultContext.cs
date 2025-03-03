@@ -28,7 +28,8 @@ public class DefaultContext : DbContext
 
     private void OnSeed(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Product>().HasData(
+        var productsList = new List<Product>
+        {
             new Product { Id = Guid.NewGuid(), Name = "Laptop", Description = "High-performance laptop", Color = "Silver", Size = "15-inch", CreatedAt = DateTime.UtcNow },
             new Product { Id = Guid.NewGuid(), Name = "Wireless Mouse", Description = "Ergonomic wireless mouse", Color = "Black", Size = "Medium", CreatedAt = DateTime.UtcNow },
             new Product { Id = Guid.NewGuid(), Name = "Mechanical Keyboard", Description = "RGB backlit keyboard", Color = "White", Size = "Full-size", CreatedAt = DateTime.UtcNow },
@@ -57,7 +58,24 @@ public class DefaultContext : DbContext
             new Product { Id = Guid.NewGuid(), Name = "Electric Toothbrush", Description = "Rechargeable electric toothbrush", Color = "White", Size = "Small", CreatedAt = DateTime.UtcNow },
             new Product { Id = Guid.NewGuid(), Name = "Standing Desk", Description = "Adjustable height standing desk", Color = "Brown", Size = "Large", CreatedAt = DateTime.UtcNow },
             new Product { Id = Guid.NewGuid(), Name = "Robot Vacuum", Description = "Smart robotic vacuum cleaner", Color = "Black", Size = "Compact", CreatedAt = DateTime.UtcNow }
-        );
+        };
+
+        var branchesList = new List<Branch>
+            {
+                new Branch { Id = Guid.NewGuid(), Name = "Loja Centro", Location = "Rua das Flores, 123, Centro", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Shopping Outlet", Location = "Avenida Comercial, 456, Shopping Central", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Tech Hub", Location = "Rua Inovação, 789, Distrito Tecnológico", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Loja Suburbana", Location = "Avenida das Palmeiras, 321, Bairro Residencial", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Quiosque Aeroporto", Location = "Terminal 1, Aeroporto Internacional", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Loja Universitária", Location = "Praça Acadêmica, Avenida Universidade", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Loja Empresarial", Location = "Parque Corporativo, 500, Área de Negócios", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Outlet Praia", Location = "Avenida Beira-Mar, 100, Região Costeira", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Loja Serra", Location = "Rua das Montanhas, 200, Região Serrana", CreatedAt = DateTime.UtcNow },
+                new Branch { Id = Guid.NewGuid(), Name = "Loja Industrial", Location = "Rua das Fábricas, 600, Polo Industrial", CreatedAt = DateTime.UtcNow }
+            };
+
+        modelBuilder.Entity<Product>().HasData(productsList);
+        modelBuilder.Entity<Branch>().HasData(branchesList);
     }
 }
 public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
