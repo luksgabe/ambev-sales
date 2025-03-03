@@ -41,5 +41,10 @@
         /// <returns>True if the entity was deleted, false if not found</returns>
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
+
+        Task CreateNoSql(TEntity entity);
+        Task UpdateNoSql(Guid id, TEntity entity);
+        Task DeleteNoSql(Guid id);
+        Task DeleteNoSql(Guid id, TEntity entityForDeletion);
     }
 }

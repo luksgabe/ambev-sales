@@ -1,6 +1,8 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.ORM.Options;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
@@ -9,8 +11,14 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 /// </summary>
 public class UserRepository : Repository<User>, IUserRepository
 {
-    public UserRepository(DefaultContext context) : base(context)
+    private readonly IMongoCollection<User> _userCollection;
+    public UserRepository(DefaultContext context, IMongoDatabaseSettings mongoSettings) : base(context, mongoSettings)
     {
+        var client = new MongoClient(mongoSettings.ConnectionString);
+        var database = client.GetDatabase(mongoSettings.DatabaseName);
+
+        _userCollection = database.GetCollection<User>(nameof(User));
+        base.MongoDB(_userCollection);
     }
 
     /// <summary>
