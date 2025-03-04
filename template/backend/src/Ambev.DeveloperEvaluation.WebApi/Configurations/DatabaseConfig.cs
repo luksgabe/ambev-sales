@@ -34,10 +34,13 @@ namespace Ambev.DeveloperEvaluation.WebApi.Configurations
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<DefaultContext>();
+                var eventContext = serviceScope.ServiceProvider.GetRequiredService<EventStoreSqlContext>();
                 var mongoContext = serviceScope.ServiceProvider.GetRequiredService<MongoSeeder>();
                 
                 context.Database.Migrate();
-                
+                eventContext.Database.Migrate();
+
+
                 mongoContext.SeedAllAsync().GetAwaiter();
             }
         }

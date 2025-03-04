@@ -22,6 +22,33 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Ambev.DeveloperEvaluation.Application.Configuration.Events.StoredEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AggregateId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MessageType")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("Action");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreationDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StoredEvent");
+                });
+
             modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Branch", b =>
                 {
                     b.Property<Guid>("Id")
@@ -52,71 +79,71 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("719a000b-a7f6-4e32-804d-4ed567839194"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8432),
+                            Id = new Guid("22222222-2222-2222-2222-222222222201"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7631),
                             Location = "Rua das Flores, 123, Centro",
                             Name = "Loja Centro"
                         },
                         new
                         {
-                            Id = new Guid("1814b34e-46a6-4391-bdc1-52cda86d7bea"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8436),
+                            Id = new Guid("22222222-2222-2222-2222-222222222202"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7635),
                             Location = "Avenida Comercial, 456, Shopping Central",
                             Name = "Shopping Outlet"
                         },
                         new
                         {
-                            Id = new Guid("2f522b1a-51fe-455e-9d69-222bf92217dc"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8463),
+                            Id = new Guid("22222222-2222-2222-2222-222222222203"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7636),
                             Location = "Rua Inovação, 789, Distrito Tecnológico",
                             Name = "Tech Hub"
                         },
                         new
                         {
-                            Id = new Guid("25b5f452-fb82-43ee-9f40-74e977b50ae7"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8465),
+                            Id = new Guid("22222222-2222-2222-2222-222222222204"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7638),
                             Location = "Avenida das Palmeiras, 321, Bairro Residencial",
                             Name = "Loja Suburbana"
                         },
                         new
                         {
-                            Id = new Guid("5c7f164f-ade7-4339-ab6c-0d2551056459"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8468),
+                            Id = new Guid("22222222-2222-2222-2222-222222222205"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7639),
                             Location = "Terminal 1, Aeroporto Internacional",
                             Name = "Quiosque Aeroporto"
                         },
                         new
                         {
-                            Id = new Guid("46cd5abb-4845-4c5c-88aa-af012da953ed"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8470),
+                            Id = new Guid("22222222-2222-2222-2222-222222222206"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7641),
                             Location = "Praça Acadêmica, Avenida Universidade",
                             Name = "Loja Universitária"
                         },
                         new
                         {
-                            Id = new Guid("7a58335e-3d28-4456-a4e9-eefba8e087b7"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8472),
+                            Id = new Guid("22222222-2222-2222-2222-222222222207"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7644),
                             Location = "Parque Corporativo, 500, Área de Negócios",
                             Name = "Loja Empresarial"
                         },
                         new
                         {
-                            Id = new Guid("397de9e9-385d-4d57-ad0f-fdeecf4367f6"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8473),
+                            Id = new Guid("22222222-2222-2222-2222-222222222208"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7646),
                             Location = "Avenida Beira-Mar, 100, Região Costeira",
                             Name = "Outlet Praia"
                         },
                         new
                         {
-                            Id = new Guid("89ef0106-8170-42b9-8717-1b71ef01b742"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8475),
+                            Id = new Guid("22222222-2222-2222-2222-222222222209"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7648),
                             Location = "Rua das Montanhas, 200, Região Serrana",
                             Name = "Loja Serra"
                         },
                         new
                         {
-                            Id = new Guid("703d4ab5-f449-43c1-a5af-4c584519a1d0"),
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8477),
+                            Id = new Guid("22222222-2222-2222-2222-222222222210"),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7650),
                             Location = "Rua das Fábricas, 600, Polo Industrial",
                             Name = "Loja Industrial"
                         });
@@ -161,255 +188,453 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("72b6ca90-3899-4e64-8109-cae66471e7d9"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111101"),
                             Color = "Silver",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8367),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7442),
                             Description = "High-performance laptop",
                             Name = "Laptop",
                             Size = "15-inch"
                         },
                         new
                         {
-                            Id = new Guid("382bd8dd-694c-4ea6-bbf6-0899d7d6e3b3"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111102"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8377),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7446),
                             Description = "Ergonomic wireless mouse",
                             Name = "Wireless Mouse",
                             Size = "Medium"
                         },
                         new
                         {
-                            Id = new Guid("ed29c524-d21a-4931-8429-6290aae8fd59"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111103"),
                             Color = "White",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8379),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7448),
                             Description = "RGB backlit keyboard",
                             Name = "Mechanical Keyboard",
                             Size = "Full-size"
                         },
                         new
                         {
-                            Id = new Guid("fd4c745b-f827-4f24-b7e3-9f03e451b216"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111104"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8381),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7450),
                             Description = "144Hz refresh rate monitor",
                             Name = "Gaming Monitor",
                             Size = "27-inch"
                         },
                         new
                         {
-                            Id = new Guid("f68858cb-0012-4d3b-8c1e-528d88d1f825"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111105"),
                             Color = "Grey",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8382),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7452),
                             Description = "Multiport adapter",
                             Name = "USB-C Hub",
                             Size = "Compact"
                         },
                         new
                         {
-                            Id = new Guid("f94b7f60-59ef-4d20-aff4-b9d4aa17375d"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111106"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8386),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7455),
                             Description = "1TB storage drive",
                             Name = "External Hard Drive",
                             Size = "Portable"
                         },
                         new
                         {
-                            Id = new Guid("3df71f32-41d9-495a-a4d5-6de2e3267a1b"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111107"),
                             Color = "Blue",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8387),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7457),
                             Description = "Latest model smartphone",
                             Name = "Smartphone",
                             Size = "6-inch"
                         },
                         new
                         {
-                            Id = new Guid("784b6c86-f861-4491-911b-b32d923f37fb"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111108"),
                             Color = "Red",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8389),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7458),
                             Description = "Portable wireless speaker",
                             Name = "Bluetooth Speaker",
                             Size = "Small"
                         },
                         new
                         {
-                            Id = new Guid("3b232215-f9db-4ec8-8ccb-c0eedb255cdf"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111109"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8392),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7460),
                             Description = "Wireless noise-canceling headphones",
                             Name = "Noise Cancelling Headphones",
                             Size = "Over-ear"
                         },
                         new
                         {
-                            Id = new Guid("f4e2ad9c-3a49-4172-95e6-3baaa00df222"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111110a"),
                             Color = "Silver",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8395),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7462),
                             Description = "Water-resistant smartwatch",
                             Name = "Smartwatch",
                             Size = "40mm"
                         },
                         new
                         {
-                            Id = new Guid("1cb1c33e-b61e-41a3-9bf1-00e9c77f1cac"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111110b"),
                             Color = "Gold",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8396),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7464),
                             Description = "High-resolution tablet",
                             Name = "Tablet",
                             Size = "10-inch"
                         },
                         new
                         {
-                            Id = new Guid("a7011964-1302-4273-925d-956083f4eb8d"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111110c"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8398),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7465),
                             Description = "Professional drawing tablet",
                             Name = "Graphic Tablet",
                             Size = "Large"
                         },
                         new
                         {
-                            Id = new Guid("b609d7d6-f493-435e-9cb5-ced331bfaef0"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111110d"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8399),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7466),
                             Description = "1080p HD webcam",
                             Name = "Webcam",
                             Size = "Compact"
                         },
                         new
                         {
-                            Id = new Guid("9a67fd7f-699f-4cca-b850-72365e471a39"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111110e"),
                             Color = "Silver",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8401),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7468),
                             Description = "Professional podcast microphone",
                             Name = "Microphone",
                             Size = "Medium"
                         },
                         new
                         {
-                            Id = new Guid("296472b3-efb3-4717-81ab-7fc0a933fb83"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111110f"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8402),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7472),
                             Description = "Virtual reality headset",
                             Name = "VR Headset",
                             Size = "Adjustable"
                         },
                         new
                         {
-                            Id = new Guid("8f2fe901-4f8e-4dcc-95c2-ec13b92c2eb1"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111110"),
                             Color = "White",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8404),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7474),
                             Description = "4K camera drone",
                             Name = "Drone",
                             Size = "Portable"
                         },
                         new
                         {
-                            Id = new Guid("0a8e6d9c-cbe2-47e5-a2d6-d7c02578eab8"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8407),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7475),
                             Description = "Fast external SSD",
                             Name = "Portable SSD",
                             Size = "500GB"
                         },
                         new
                         {
-                            Id = new Guid("55f91750-93a8-4082-87d1-53619cd95ecd"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111112"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8409),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7477),
                             Description = "High-speed HDMI cable",
                             Name = "HDMI Cable",
                             Size = "6ft"
                         },
                         new
                         {
-                            Id = new Guid("6fd02cec-014d-419a-a139-bdc12b330ad6"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111113"),
                             Color = "White",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8411),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7479),
                             Description = "Fast charging pad",
                             Name = "Wireless Charger",
                             Size = "Small"
                         },
                         new
                         {
-                            Id = new Guid("065180de-a748-4f05-a9a1-1c3f1a94575f"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111114"),
                             Color = "Red",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8412),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7480),
                             Description = "Ergonomic gaming chair",
                             Name = "Gaming Chair",
                             Size = "Large"
                         },
                         new
                         {
-                            Id = new Guid("a34634fd-4f72-457f-9ddb-2d2e4b44d4e0"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111115"),
                             Color = "Multi-color",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8414),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7482),
                             Description = "WiFi-enabled LED bulb",
                             Name = "Smart Bulb",
                             Size = "Standard"
                         },
                         new
                         {
-                            Id = new Guid("51500140-a4b7-43e5-819c-c8481e2df466"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111116"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8415),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7483),
                             Description = "10000mAh fast-charging power bank",
                             Name = "Portable Power Bank",
                             Size = "Compact"
                         },
                         new
                         {
-                            Id = new Guid("fd99adee-3310-4d52-b669-6e2285162918"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111117"),
                             Color = "Blue",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8417),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7485),
                             Description = "Activity tracking smartwatch",
                             Name = "Fitness Tracker",
                             Size = "Medium"
                         },
                         new
                         {
-                            Id = new Guid("8ee900b3-8e1a-468c-abba-8486f970f2f1"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111118"),
                             Color = "Silver",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8419),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7486),
                             Description = "Automatic drip coffee maker",
                             Name = "Coffee Maker",
                             Size = "Medium"
                         },
                         new
                         {
-                            Id = new Guid("1c2317d3-d53f-4393-919e-193592568393"),
+                            Id = new Guid("11111111-1111-1111-1111-111111111119"),
                             Color = "White",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8421),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7487),
                             Description = "HEPA filter air purifier",
                             Name = "Air Purifier",
                             Size = "Large"
                         },
                         new
                         {
-                            Id = new Guid("c2da8b07-0bac-4bfe-9ac1-d11e7a1acf10"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111111a"),
                             Color = "White",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8423),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7489),
                             Description = "Rechargeable electric toothbrush",
                             Name = "Electric Toothbrush",
                             Size = "Small"
                         },
                         new
                         {
-                            Id = new Guid("ab7c6a9d-a49b-4459-8a45-a8c75690142f"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111111b"),
                             Color = "Brown",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8425),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7490),
                             Description = "Adjustable height standing desk",
                             Name = "Standing Desk",
                             Size = "Large"
                         },
                         new
                         {
-                            Id = new Guid("151f28cf-4448-4961-9241-7d4922331875"),
+                            Id = new Guid("11111111-1111-1111-1111-11111111111c"),
                             Color = "Black",
-                            CreatedAt = new DateTime(2025, 3, 3, 5, 55, 55, 486, DateTimeKind.Utc).AddTicks(8426),
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7492),
                             Description = "Smart robotic vacuum cleaner",
                             Name = "Robot Vacuum",
                             Size = "Compact"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111111d"),
+                            Color = "White",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7493),
+                            Description = "Programmable smart thermostat",
+                            Name = "Smart Thermostat",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111111e"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7495),
+                            Description = "Surround sound home theater system",
+                            Name = "Home Theater System",
+                            Size = "Large"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111111f"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7496),
+                            Description = "4K action camera",
+                            Name = "Action Camera",
+                            Size = "Compact"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111120"),
+                            Color = "Silver",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7498),
+                            Description = "Bluetooth enabled smart lock",
+                            Name = "Smart Lock",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111121"),
+                            Color = "White",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7499),
+                            Description = "Mini portable projector",
+                            Name = "Portable Projector",
+                            Size = "Small"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111122"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7501),
+                            Description = "E-ink display e-reader",
+                            Name = "E-Reader",
+                            Size = "Pocket"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111123"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7503),
+                            Description = "Augmented reality smart glasses",
+                            Name = "Smart Glasses",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111124"),
+                            Color = "White",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7504),
+                            Description = "True wireless earbuds",
+                            Name = "Wireless Earbuds",
+                            Size = "Small"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111125"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7506),
+                            Description = "Compact portable charger",
+                            Name = "Portable Charger",
+                            Size = "Small"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111126"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7507),
+                            Description = "Next-gen gaming console",
+                            Name = "Gaming Console",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111127"),
+                            Color = "Stainless Steel",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7509),
+                            Description = "WiFi-connected smart refrigerator",
+                            Name = "Smart Refrigerator",
+                            Size = "Large"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111128"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7510),
+                            Description = "High-resolution digital camera",
+                            Name = "Digital Camera",
+                            Size = "Compact"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111129"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7511),
+                            Description = "Voice-controlled smart speaker",
+                            Name = "Smart Speaker",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111112a"),
+                            Color = "Green",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7513),
+                            Description = "Eco-friendly electric scooter",
+                            Name = "Electric Scooter",
+                            Size = "Medium"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111112b"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7514),
+                            Description = "Wireless VR controller",
+                            Name = "VR Controller",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111112c"),
+                            Color = "Stainless Steel",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7516),
+                            Description = "Convection smart oven",
+                            Name = "Smart Oven",
+                            Size = "Large"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111112d"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7517),
+                            Description = "Eco-friendly electric bike",
+                            Name = "Electric Bike",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111112e"),
+                            Color = "White",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7519),
+                            Description = "White noise machine",
+                            Name = "Noise Machine",
+                            Size = "Small"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-11111111112f"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7520),
+                            Description = "Digital smart scale",
+                            Name = "Smart Scale",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111130"),
+                            Color = "Yellow",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7522),
+                            Description = "Tile-like Bluetooth tracker",
+                            Name = "Bluetooth Tracker",
+                            Size = "Small"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111131"),
+                            Color = "Black",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7523),
+                            Description = "High-speed wireless router",
+                            Name = "Wireless Router",
+                            Size = "Standard"
+                        },
+                        new
+                        {
+                            Id = new Guid("11111111-1111-1111-1111-111111111132"),
+                            Color = "Space Gray",
+                            CreatedAt = new DateTime(2025, 3, 4, 1, 10, 59, 927, DateTimeKind.Utc).AddTicks(7524),
+                            Description = "Advanced smartwatch",
+                            Name = "Smartwatch Pro",
+                            Size = "42mm"
                         });
                 });
 
@@ -566,7 +791,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .IsRequired();
 
                     b.HasOne("Ambev.DeveloperEvaluation.Domain.Entities.Sale", "Sale")
-                        .WithMany("SaleItems")
+                        .WithMany("SaleItens")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -583,7 +808,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
             modelBuilder.Entity("Ambev.DeveloperEvaluation.Domain.Entities.Sale", b =>
                 {
-                    b.Navigation("SaleItems");
+                    b.Navigation("SaleItens");
                 });
 #pragma warning restore 612, 618
         }

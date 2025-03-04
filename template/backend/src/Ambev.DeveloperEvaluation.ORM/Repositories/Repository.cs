@@ -38,7 +38,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The object if found, null otherwise</returns>
-        public async Task<IEnumerable<TEntity?>> GetAll(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TEntity?>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             DateTime? deletedAt = null;
             var filter = Builders<TEntity>.Filter.Eq("DeletedAt", deletedAt);
@@ -55,12 +55,16 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The object if found, null otherwise</returns>
         public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
+            return await _dbSet.FindAsync(id, cancellationToken);
+        }
+
+        public async Task<TEntity?> GetByIdNoSqlAsync(Guid id, CancellationToken cancellationToken = default)
+        {
             DateTime? deletedAt = null;
             var filter = Builders<TEntity>.Filter.Eq("DeletedAt", deletedAt);
             filter = filter & Builders<TEntity>.Filter.Eq("Id", id);
             return await _mongoContext.Find(filter).FirstOrDefaultAsync(cancellationToken);
         }
-
 
         /// <summary>
         /// Creates a new object in the database
@@ -130,5 +134,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context.Dispose();
             GC.SuppressFinalize(this);
         }
+
+
     }
 }
