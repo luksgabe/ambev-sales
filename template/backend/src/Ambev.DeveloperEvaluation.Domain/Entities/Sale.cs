@@ -20,5 +20,15 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         {
             TotalSaleAmount = SaleItens.Sum(x => x.TotalItemAmount);
         }
+        public void SetCustomer(User customer)
+        {
+            Customer = customer;
+            CustomerId = customer.Id;
+        }
+        public void SetBranch(Branch branch)
+        {
+            Branch = branch;
+            BranchId = branch.Id;
+        }
     }
 }

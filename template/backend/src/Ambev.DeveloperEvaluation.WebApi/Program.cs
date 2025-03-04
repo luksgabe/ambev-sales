@@ -3,11 +3,12 @@ using Ambev.DeveloperEvaluation.Common.HealthChecks;
 using Ambev.DeveloperEvaluation.Common.Logging;
 using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
-using Ambev.DeveloperEvaluation.IoC;
-using Ambev.DeveloperEvaluation.ORM;
+using Ambev.DeveloperEvaluation.WebApi.Configurations;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson;
 using Serilog;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
@@ -21,23 +22,33 @@ public class Program
             Log.Information("Starting web application");
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+            builder.Configuration
+                .SetBasePath(builder.Environment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+                .AddUserSecrets<Program>()
+                .AddEnvironmentVariables();
+
             builder.AddDefaultLogging();
 
-            builder.Services.AddControllers();
+
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
+
             builder.Services.AddEndpointsApiExplorer();
 
             builder.AddBasicHealthChecks();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DefaultContext>(options =>
-                options.UseNpgsql(
-                    builder.Configuration.GetConnectionString("DefaultConnection")
-                )
-            );
+            builder.AddDatabaseConfiguration();
 
             builder.Services.AddJwtAuthentication(builder.Configuration);
 
-            builder.RegisterDependencies();
+            builder.AddDependencyInjectionConfiguration();
 
             builder.Services.AddAutoMapper(typeof(Program).Assembly, typeof(ApplicationLayer).Assembly);
 
@@ -51,6 +62,8 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
 
@@ -59,6 +72,10 @@ public class Program
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.CreateDatabaseIfNotExists();
+
+            app.AddMessageBrokerConfig();
 
             app.UseHttpsRedirection();
 

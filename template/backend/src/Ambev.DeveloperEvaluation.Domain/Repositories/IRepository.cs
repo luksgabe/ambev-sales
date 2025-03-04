@@ -10,12 +10,14 @@
         /// <returns>The entity if found, null otherwise</returns>
         Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
+        Task<TEntity?> GetByIdNoSqlAsync(Guid id, CancellationToken cancellationToken = default);
+
         /// <summary>
         /// Get all entities objects of the repository
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>True if the entity was deleted, false if not found</returns>
-        Task<IEnumerable<TEntity?>> GetAll(CancellationToken cancellationToken = default);
+        Task<IEnumerable<TEntity?>> GetAllAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Creates a new entity in the repository
@@ -41,5 +43,10 @@
         /// <returns>True if the entity was deleted, false if not found</returns>
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
+
+        Task CreateNoSql(TEntity entity);
+        Task UpdateNoSql(Guid id, TEntity entity);
+        Task DeleteNoSql(Guid id);
+        Task DeleteNoSql(Guid id, TEntity entityForDeletion);
     }
 }

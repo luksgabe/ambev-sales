@@ -1,5 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.ORM.Options;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories
 {
@@ -9,15 +11,24 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DefaultContext _context;
+        protected IMongoCollection<TEntity> _mongoContext;
 
         /// <summary>
         /// Initializes a new instance of Repository
         /// </summary>
         /// <param name="context">The database context</param>
-        protected Repository(DefaultContext context)
+        protected Repository(DefaultContext context, IMongoDatabaseSettings mongoSettings)
         {
             _context = context;
             _context.ChangeTracker.LazyLoadingEnabled = false;
+
+            var client = new MongoClient(mongoSettings.ConnectionString);
+            var mongoDb = client.GetDatabase(mongoSettings.DatabaseName);
+        }
+
+        protected void MongoDB(IMongoCollection<TEntity> mongoCollection)
+        {
+            _mongoContext = mongoCollection;
         }
 
         private DbSet<TEntity> _dbSet => _context.Set<TEntity>();
@@ -27,9 +38,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The object if found, null otherwise</returns>
-        public async Task<IEnumerable<TEntity?>> GetAll(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TEntity?>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbSet.ToListAsync(cancellationToken);
+            DateTime? deletedAt = null;
+            var filter = Builders<TEntity>.Filter.Eq("DeletedAt", deletedAt);
+
+            var result = await _mongoContext.Find(filter).ToListAsync(cancellationToken);
+            return result;
         }
 
         /// <summary>
@@ -43,6 +58,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             return await _dbSet.FindAsync(id, cancellationToken);
         }
 
+        public async Task<TEntity?> GetByIdNoSqlAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            DateTime? deletedAt = null;
+            var filter = Builders<TEntity>.Filter.Eq("DeletedAt", deletedAt);
+            filter = filter & Builders<TEntity>.Filter.Eq("Id", id);
+            return await _mongoContext.Find(filter).FirstOrDefaultAsync(cancellationToken);
+        }
 
         /// <summary>
         /// Creates a new object in the database
@@ -81,8 +103,27 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
                 return false;
 
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync(cancellationToken);
             return true;
+        }
+
+        public virtual async Task CreateNoSql(TEntity entity)
+            => await _mongoContext.InsertOneAsync(entity);
+
+        public virtual async Task UpdateNoSql(Guid id, TEntity entity)
+        {
+            var filter = Builders<TEntity>.Filter.Eq("Id", id);
+            await _mongoContext.ReplaceOneAsync(filter, entity);
+        }
+
+        public virtual async Task DeleteNoSql(Guid id)
+        {
+            var filter = Builders<TEntity>.Filter.Eq("Id", id);
+            _mongoContext.DeleteOne(filter);
+        }
+
+        public virtual async Task DeleteNoSql(Guid id, TEntity entityForDeletion)
+        {
+            await this.UpdateNoSql(id, entityForDeletion);
         }
 
         /// <summary>
@@ -93,5 +134,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             _context.Dispose();
             GC.SuppressFinalize(this);
         }
+
+
     }
 }
