@@ -5,10 +5,12 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProducts;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSales;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : BaseController
@@ -29,6 +31,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
         /// <returns>The user details if found</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponseWithData<GetProductResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetProducts([FromQuery]GetProductRequest request, CancellationToken cancellationToken)
