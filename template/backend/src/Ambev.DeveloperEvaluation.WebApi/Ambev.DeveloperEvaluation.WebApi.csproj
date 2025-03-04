@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ambev.DeveloperEvaluation.Bus\Ambev.DeveloperEvaluation.Bus.csproj" />
     <ProjectReference Include="..\Ambev.DeveloperEvaluation.IoC\Ambev.DeveloperEvaluation.IoC.csproj" />
   </ItemGroup>
 
