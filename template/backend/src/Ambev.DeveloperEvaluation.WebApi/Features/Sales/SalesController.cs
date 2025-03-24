@@ -8,12 +8,14 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SalesController : BaseController
@@ -40,6 +42,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         /// <returns>The created sale details</returns>
         [HttpPost]
         [ProducesResponseType(typeof(ApiResponseWithData<CreateSaleResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateSale([FromBody] CreateSaleRequest request, CancellationToken cancellationToken)
         {
@@ -65,6 +68,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         /// <returns>The user details if found</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ApiResponseWithData<GetSaleByIdResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSaleById(Guid id, CancellationToken cancellationToken)
