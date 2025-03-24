@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Configuration.Events;
+using Ambev.DeveloperEvaluation.Application.Products.Events;
 using Ambev.DeveloperEvaluation.Application.Sales.Events;
 using Ambev.DeveloperEvaluation.Bus;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
@@ -32,6 +33,7 @@ public class InfrastructureModuleInitializer : IModuleInitializer
         builder.Services.AddScoped<EventStoreSqlContext>();
 
         builder.Services.AddTransient<SaleRegisterEventHandler>();
+        builder.Services.AddTransient<ProductRegisterEventHandler>();
 
         builder.Services.AddScoped<IEventStoreRepository, EventStoreSqlRepository>();
         builder.Services.AddScoped<IEventStore, SqlEventStore>();
